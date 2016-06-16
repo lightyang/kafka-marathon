@@ -17,9 +17,16 @@ if [[ -z "$KAFKA_BROKER_ID" ]]; then
   # By default auto allocate broker ID
   export KAFKA_BROKER_ID=-1
 fi
-if [[ -z "$KAFKA_LOG_DIRS" ]]; then
+
+if [[ -n "$KAFKA_LOG_DIRS" ]]; then
+  if [[ ! $KAFKA_LOG_DIRS =~ ^/ ]]; then
+    # relative dir
+    export $KAFKA_LOG_DIRS=$MESOS_SANDBOX/$KAFKA_LOG_DIRS
+  fi
+else
   export KAFKA_LOG_DIRS="/data"
 fi
+
 if [[ -z "$KAFKA_ZOOKEEPER_CONNECT" ]]; then
   export KAFKA_ZOOKEEPER_CONNECT=$(env | grep ZK.*PORT_2181_TCP= | sed -e 's|.*tcp://||' | paste -sd ,)
 fi
