@@ -21,7 +21,7 @@ fi
 if [[ -n "$KAFKA_LOG_DIRS" ]]; then
   if [[ ! $KAFKA_LOG_DIRS =~ ^/ ]]; then
     # relative dir
-    export $KAFKA_LOG_DIRS=$MESOS_SANDBOX/$KAFKA_LOG_DIRS
+    export KAFKA_LOG_DIRS="$MESOS_SANDBOX/$KAFKA_LOG_DIRS"
   fi
 else
   export KAFKA_LOG_DIRS="/data"
@@ -52,6 +52,7 @@ done
 if [[ -z "$JMX_PORT" && -n "$PORT1" ]]; then
   export JMX_PORT=$PORT1
 fi
+echo "JMX port: $JMX_PORT"
 
 if [ -z $KAFKA_JMX_OPTS ]; then
   KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote=true"
