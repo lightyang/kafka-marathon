@@ -1,8 +1,8 @@
-#kafka-marathon
+# kafka-marathon
 
 Dockerfile to run Apache Kafka on Marathon
 
-##Usage
+## Usage
 
 - network: HOST
 - PORT0: kafka port
